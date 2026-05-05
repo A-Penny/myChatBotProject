@@ -1,0 +1,5 @@
+"what is a foul ball?"
+"how many players does the defense have on the field?"
+"what is a balk?"
+"what happens when two players occupy the same base and they are both tagged?"
+"how many innings are in a game?"
