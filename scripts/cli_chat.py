@@ -6,6 +6,8 @@ from retrieve import load_index, load_chunks_by_id, retrieve
 
 chunks_path = Path("data/processed/chunks.jsonl")
 
+min_answer_score = 0.12
+
 def format_citation(meta: dict) -> str:
     parts = []
 
@@ -85,7 +87,7 @@ def build_rule_line(result):
         return "Rule reference unavailable"
     
 def print_chatbot_answer(query: str, result: dict, show_topk=False):
-    print(result["answer_text"])
+    print("Chatbot: ", result["answer_text"])
 
     print("\nRule:")
     print(build_rule_line(result))
@@ -167,7 +169,10 @@ def main():
         )
 
         thinking()
-        print_chatbot_answer(query, result, show_topk=show_topk)
+        if result["score"] < min_answer_score:
+            print("Chatbot: I'm sorry I don't have a rule for that question.")
+        else:
+            print_chatbot_answer(query, result, show_topk=show_topk)
 
 if __name__ == "__main__":
     main()
